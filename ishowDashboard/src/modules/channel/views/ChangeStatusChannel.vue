@@ -1,0 +1,69 @@
+<script setup lang="ts">
+import { computed } from "vue";
+import channelService from "../services/channelService";
+import type { ISectionChannelsResponse } from "../types/channel-response";
+import { useChannelStore } from "../stores/channel";
+
+interface Props {
+  modelValue: boolean;
+  sectionChannelItem: ISectionChannelsResponse | null;
+}
+
+const channelStore = useChannelStore();
+
+const props = defineProps<Props>();
+const emit = defineEmits<{
+  (e: "update:modelValue", value: boolean): void;
+  (e: "updated", updatedItem: ISectionChannelsResponse): void;
+}>();
+
+const nextStatus = computed(() =>
+  props.sectionChannelItem?.isTop ? "0" : "1",
+);
+
+const actionLabel = computed(() =>
+  props.sectionChannelItem?.isTop ? "not top" : "top",
+);
+
+async function confirm() {
+  if (!props.sectionChannelItem) return;
+
+  await channelService.changeStatusChannel({
+    isTop: nextStatus.value,
+    channelId: props.sectionChannelItem.channelId,
+    sectionId: props.sectionChannelItem.sectionId,
+  });
+
+  const updatedItem = {
+      ...props.sectionChannelItem,
+      isTop: nextStatus.value == "1" ? true : false
+    };
+
+  emit("updated", updatedItem);
+  emit("update:modelValue", false);
+}
+</script>
+
+<template>
+  <v-dialog :model-value="modelValue" max-width="600">
+    <v-card prepend-icon="mdi-pencil" title="Update Channel Status">
+      <v-card-text>
+        Are you sure you want to change this channel's status to 
+        <strong>{{ actionLabel.toLowerCase() }}</strong>?
+      </v-card-text>
+
+      <v-card-actions class="justify-end">
+        <v-btn variant="text" @click="emit('update:modelValue', false)">
+          Cancel
+        </v-btn>
+        <v-btn
+          color="secondary"
+          :loading="channelStore.loading"
+          @click="confirm"
+        >
+          Change 
+        </v-btn>
+      </v-card-actions>
+    </v-card>
+  </v-dialog>
+</template>

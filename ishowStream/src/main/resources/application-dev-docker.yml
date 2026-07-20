@@ -1,0 +1,12 @@
+spring:
+  application:
+    name: ishowStream
+
+server:
+  port: 9002
+
+app:
+  api-key: KouAuYO6qoQVbLLsbTvEkQCNaXGvFr89FqEizw3OM9c=
+
+storage:
+  working-dir: /opt/ishow/storage/

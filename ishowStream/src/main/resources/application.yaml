@@ -1,0 +1,11 @@
+spring:
+  application:
+    name: ishowStream
+  profiles:
+    active: dev
+
+storage:
+  working-dir: /opt/ishow/storage/
+
+app:
+  api-key: KouAuYO6qoQVbLLsbTvEkQCNaXGvFr89FqEizw3OM9c=

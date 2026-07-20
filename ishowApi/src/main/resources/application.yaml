@@ -1,0 +1,13 @@
+spring:
+  application:
+    name: ishowApi
+  profiles:
+    active: dev
+  servlet:
+    multipart:
+      max-file-size: 1024MB
+      max-request-size: 1024MB
+
+storage:
+  base-dir: /opt/ishow/storage/
+  deleted-dir: /opt/ishow/deleted/

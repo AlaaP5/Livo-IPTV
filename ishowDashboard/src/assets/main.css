@@ -1,0 +1,23 @@
+/* main.css */
+html, body, #app {
+  font-family: 'Roboto Condensed', Arial, sans-serif;
+}
+
+.title {
+    font-size: 32px;
+    font-weight: bold;
+    background-color: #344c64;
+    color: transparent;
+    background-clip: text;
+    -webkit-background-clip: text;
+    text-align: center;
+}
+
+.btn {
+  margin: 25px 0 0 20px;
+  height: 40px;
+}
+
+.v-divider {
+  margin-top: 15px;
+}
